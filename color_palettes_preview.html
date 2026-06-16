@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UstNext コーポレートカラー 候補7案 ビジュアルプレビュー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1f1f2e; --gray:#6b7280; --gray-light:#f3f4f6; --bg:#fafafa; --border:#e5e7eb; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+    color: var(--ink); background: var(--bg); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; padding: 36px 4%;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 56px; }
+  header h1 {
+    font-size: clamp(28px, 4vw, 44px); font-weight: 900; letter-spacing: -0.02em; line-height: 1.2;
+    background: linear-gradient(135deg, #0e7c7b, #2e86c1, #5b2eff, #ec4899);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 16px;
+  }
+  header .sub { color: var(--gray); font-size: 15px; margin-bottom: 6px; }
+  header .nav {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px;
+  }
+  header .nav a {
+    padding: 8px 16px; background: white; border: 1px solid var(--border);
+    border-radius: 999px; text-decoration: none; color: var(--ink); font-size: 13px; font-weight: 700;
+    transition: all 0.15s;
+  }
+  header .nav a:hover { background: var(--ink); color: white; }
+
+  .palette {
+    background: white; margin: 36px 0; border-radius: 24px;
+    box-shadow: 0 6px 36px rgba(0,0,0,0.06); overflow: hidden;
+  }
+  .palette-head {
+    padding: 32px 36px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .palette-num {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 18px; color: white;
+  }
+  .palette-title { flex: 1; min-width: 200px; }
+  .palette-title h2 { font-size: 24px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .palette-title .label { color: var(--gray); font-size: 13px; }
+  .scorecard {
+    display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px;
+  }
+  .score-item { background: var(--gray-light); padding: 6px 12px; border-radius: 999px; }
+  .score-item strong { font-weight: 700; margin-left: 4px; }
+
+  .palette-body {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0; min-height: 480px;
+  }
+  @media (max-width: 1000px) { .palette-body { grid-template-columns: 1fr; } }
+
+  .palette-cell { padding: 24px; border-right: 1px solid var(--border); }
+  .palette-cell:last-child { border-right: none; }
+  .palette-cell h3 {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray); font-weight: 700; margin-bottom: 14px;
+  }
+
+  /* COLOR CHIPS */
+  .chips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .chip {
+    border-radius: 12px; padding: 14px 14px; min-height: 92px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+  }
+  .chip .role { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; opacity: 0.88; }
+  .chip .hex {
+    font-family: "SF Mono", Menlo, monospace; font-size: 12px; font-weight: 700; opacity: 0.92;
+  }
+
+  /* APP MOCKUPS */
+  .mockups { display: flex; flex-direction: column; gap: 18px; }
+  .mock-logo {
+    border-radius: 12px; padding: 22px 18px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100px;
+  }
+  .mock-logo .icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Pacifico', cursive; font-size: 22px; color: white;
+    padding-bottom: 6px; margin-bottom: 8px;
+  }
+  .mock-logo .name {
+    font-weight: 800; font-size: 18px; letter-spacing: -0.02em;
+    display: flex; align-items: baseline; gap: 1px;
+  }
+  .mock-logo .name .arrow {
+    font-weight: 900; letter-spacing: -0.15em;
+  }
+  .mock-btn {
+    border-radius: 10px; padding: 12px 18px; font-size: 13px; font-weight: 700; text-align: center;
+    color: white;
+  }
+  .mock-card-tag {
+    border-radius: 999px; padding: 4px 12px; font-size: 11px; font-weight: 700;
+    display: inline-block; margin-right: 6px;
+  }
+
+  /* WEBSITE MOCK */
+  .mock-site {
+    border-radius: 12px; padding: 18px 18px 22px; min-height: 200px;
+    color: white; position: relative; overflow: hidden;
+  }
+  .mock-site h4 {
+    font-size: 18px; font-weight: 900; line-height: 1.2; margin-bottom: 10px;
+  }
+  .mock-site p { font-size: 11px; opacity: 0.85; margin-bottom: 14px; }
+  .mock-site .cta {
+    background: white; padding: 8px 14px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; display: inline-block;
+  }
+
+  .pros-cons {
+    padding: 14px 0; font-size: 12px; color: var(--gray); line-height: 1.6;
+  }
+  .pros-cons strong { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="container">
+<header>
+  <h1>UstNext コーポレートカラー 候補7案</h1>
+  <div class="sub">5並列リサーチ（色彩心理 / 業界 / 北海道 / Z世代 / アクセシビリティ）の統合プレビュー</div>
+  <div class="sub">2026-06-03</div>
+  <div class="nav">
+    <a href="#p1">①継承青</a>
+    <a href="#p2">②凪のティール</a>
+    <a href="#p3">③美瑛ラベンダー</a>
+    <a href="#p4">④Hyper-Gradient</a>
+    <a href="#p5">⑤青×橙</a>
+    <a href="#p6">⑥夜明けの藤</a>
+    <a href="#p7">⑦道旗×流氷</a>
+  </div>
+</header>
+
+<!-- =====================================================================
+PALETTE 1: u:story 継承青 — Primary #1E40AF / Light #38BDF8 / Accent #F59E0B
+====================================================================== -->
+<div id="p1" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:#1E40AF;">1</div>
+    <div class="palette-title">
+      <h2>u:story 継承青</h2>
+      <div class="label">既存ロゴ忠実・低リスク・B2B信頼最大</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◎</strong></span>
+      <span class="score-item">差別化<strong>△</strong></span>
+      <span class="score-item">B2C<strong>○</strong></span>
+      <span class="score-item">B2B<strong>◎◎</strong></span>
+      <span class="score-item">既存<strong>◎◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1E40AF;color:white;"><div class="role">PRIMARY</div><div class="hex">#1E40AF</div></div>
+        <div class="chip" style="background:#38BDF8;color:white;"><div class="role">LIGHT</div><div class="hex">#38BDF8</div></div>
+        <div class="chip" style="background:#F59E0B;color:white;"><div class="role">ACCENT</div><div class="hex">#F59E0B</div></div>
+        <div class="chip" style="background:#0F172A;color:white;"><div class="role">INK</div><div class="hex">#0F172A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#0F172A;color:white;">
+          <div class="icon" style="background:radial-gradient(circle at 35% 30%,#60a5fa,#38BDF8,#1E40AF);">u</div>
+          <div class="name"><span style="color:#38BDF8;">:story</span><span>ne</span><span class="arrow" style="color:#38BDF8;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:#1E40AF;">スカウトを送る</div>
+        <div>
+          <span class="mock-card-tag" style="background:#1E40AF;color:white;">スタンダード</span>
+          <span class="mock-card-tag" style="background:#F59E0B;color:white;">NEW</span>
+          <span class="mock-card-tag" style="background:#38BDF8;color:white;">人気急上昇</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="mock-site" style="background:linear-gradient(135deg,#0F172A 0%,#1E40AF 50%,#38BDF8 100%);">
+          <h4>専門学生の就活を、<br>3者で支える</h4>
+          <p>専門性×働き方×自分軸。納得の出会いを。</p>
+          <span class="cta" style="color:#1E40AF;">ベータ版を見る</span>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：既存ロゴと完全整合・公庫/銀行向けに最も無難<br>
+          <strong>弱み</strong>：HR業界10/19社が青系。<u>差別化の物足りなさ</u>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+PALETTE 2: 凪のティール — Primary #0E7C7B / Accent #EC4899
+====================================================================== -->
+<div id="p2" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:#0E7C7B;">2</div>
+    <div class="palette-title">
+      <h2>凪のティール</h2>
+      <div class="label">WGSN2026トレンド・差別化最強・指止めフューシャ</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>○</strong></span>
+      <span class="score-item">差別化<strong>◎◎</strong></span>
+      <span class="score-item">B2C<strong>◎</strong></span>
+      <span class="score-item">B2B<strong>○</strong></span>
+      <span class="score-item">トレンド<strong>◎◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#0E7C7B;color:white;"><div class="role">PRIMARY</div><div class="hex">#0E7C7B</div></div>
+        <div class="chip" style="background:#EC4899;color:white;"><div class="role">ACCENT</div><div class="hex">#EC4899</div></div>
+        <div class="chip" style="background:#F4F1ED;color:#1f1f2e;"><div class="role">NEUTRAL</div><div class="hex">#F4F1ED</div></div>
+        <div class="chip" style="background:#0F1F2A;color:white;"><div class="role">INK</div><div class="hex">#0F1F2A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#F4F1ED;color:#0F1F2A;">
+          <div class="icon" style="background:radial-gradient(circle at 35% 30%,#5eead4,#0E7C7B,#0F1F2A);">u</div>
+          <div class="name"><span style="color:#0E7C7B;">:story</span><span style="color:#0F1F2A;">ne</span><span class="arrow" style="color:#EC4899;">»</span><span style="color:#0F1F2A;">t</span></div>
+        </div>
+        <div class="mock-btn" style="background:#0E7C7B;">気になる</div>
+        <div>
+          <span class="mock-card-tag" style="background:#0E7C7B;color:white;">スタンダード</span>
+          <span class="mock-card-tag" style="background:#EC4899;color:white;">指が止まる</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="mock-site" style="background:linear-gradient(135deg,#0F1F2A 0%,#0E7C7B 60%,#EC4899 100%);">
+          <h4>マッチングではなく、<br>納得を。</h4>
+          <p>指が止まるその一瞬から、就活を始める。</p>
+          <span class="cta" style="color:#0E7C7B;">ストーリーを見る</span>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：HR業界でティール採用ほぼ無し・WGSN2026トレンド本命<br>
+          <strong>弱み</strong>：既存LP紫×ピンクから一部変更・周知期間が要る
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+PALETTE 3: 美瑛ラベンダー — Primary #2E86C1 / Secondary #BBACC9
+====================================================================== -->
+<div id="p3" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:#2E86C1;">3</div>
+    <div class="palette-title">
+      <h2>美瑛ラベンダー</h2>
+      <div class="label">北海道独自・地域訴求・観光PR王道</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>○</strong></span>
+      <span class="score-item">差別化<strong>◎◎</strong></span>
+      <span class="score-item">B2C<strong>○</strong></span>
+      <span class="score-item">B2B<strong>○</strong></span>
+      <span class="score-item">北海道<strong>◎◎◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#2E86C1;color:white;"><div class="role">PRIMARY</div><div class="hex">#2E86C1</div></div>
+        <div class="chip" style="background:#BBACC9;color:white;"><div class="role">SECONDARY</div><div class="hex">#BBACC9</div></div>
+        <div class="chip" style="background:#FFFFFF;color:#1f1f2e;border:1px solid #e5e7eb;"><div class="role">NEUTRAL</div><div class="hex">#FFFFFF</div></div>
+        <div class="chip" style="background:#1B1F3A;color:white;"><div class="role">INK</div><div class="hex">#1B1F3A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:white;color:#1B1F3A;border:1px solid #e5e7eb;">
+          <div class="icon" style="background:radial-gradient(circle at 35% 30%,#a5d3eb,#2E86C1,#1B1F3A);">u</div>
+          <div class="name"><span style="color:#2E86C1;">:story</span><span style="color:#1B1F3A;">ne</span><span class="arrow" style="color:#BBACC9;">»</span><span style="color:#1B1F3A;">t</span></div>
+        </div>
+        <div class="mock-btn" style="background:#2E86C1;">学校で相談する</div>
+        <div>
+          <span class="mock-card-tag" style="background:#2E86C1;color:white;">推薦</span>
+          <span class="mock-card-tag" style="background:#BBACC9;color:white;">ラベンダー</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="mock-site" style="background:linear-gradient(135deg,#1B1F3A 0%,#2E86C1 50%,#BBACC9 100%);">
+          <h4>北海道発の就活、<br>世界へ。</h4>
+          <p>美瑛の空と富良野のラベンダーで、自分軸を見つける。</p>
+          <span class="cta" style="color:#2E86C1;">専門学校で始める</span>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：北海道発を視覚的に主張・観光PRと地続き・差別化◎<br>
+          <strong>弱み</strong>：「観光地っぽさ」が B2B 提案でやや軽く見られる懸念
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+PALETTE 4: Hyper-Gradient — #5B2EFF / #C026D3 / #25F4EE
+====================================================================== -->
+<div id="p4" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#5B2EFF,#C026D3,#25F4EE);">4</div>
+    <div class="palette-title">
+      <h2>Hyper-Gradient</h2>
+      <div class="label">Z世代特化・SNS拡散最強・TikTok型訴求</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>△</strong></span>
+      <span class="score-item">差別化<strong>◎</strong></span>
+      <span class="score-item">B2C<strong>◎◎◎</strong></span>
+      <span class="score-item">B2B<strong>△</strong></span>
+      <span class="score-item">既存<strong>◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#5B2EFF;color:white;"><div class="role">PRIMARY</div><div class="hex">#5B2EFF</div></div>
+        <div class="chip" style="background:#C026D3;color:white;"><div class="role">SECONDARY</div><div class="hex">#C026D3</div></div>
+        <div class="chip" style="background:#25F4EE;color:#0F172A;"><div class="role">ACCENT</div><div class="hex">#25F4EE</div></div>
+        <div class="chip" style="background:#3D2D8C;color:white;"><div class="role">B2B減彩</div><div class="hex">#3D2D8C</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#0F172A;color:white;">
+          <div class="icon" style="background:linear-gradient(135deg,#5B2EFF,#C026D3,#25F4EE);">u</div>
+          <div class="name"><span style="color:#25F4EE;">:story</span><span>ne</span><span class="arrow" style="color:#C026D3;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:linear-gradient(135deg,#5B2EFF,#C026D3);">スカウト来てる！</div>
+        <div>
+          <span class="mock-card-tag" style="background:#C026D3;color:white;">HOT</span>
+          <span class="mock-card-tag" style="background:#25F4EE;color:#0F172A;">バイラル</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="mock-site" style="background:linear-gradient(135deg,#0F172A 0%,#5B2EFF 35%,#C026D3 70%,#25F4EE 100%);">
+          <h4>指が止まる。<br>未来が動き出す。</h4>
+          <p>スワイプで出会う、自分らしい仕事。</p>
+          <span class="cta" style="color:#5B2EFF;">アプリで始める</span>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：Z世代SNS拡散性最強・TikTok訴求と完全一致<br>
+          <strong>弱み</strong>：B2B（学校・銀行）で軽く見られる懸念・<u>B2B用減彩モード必須</u>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+PALETTE 5: 青×橙 — #1D4ED8 / #F59E0B
+====================================================================== -->
+<div id="p5" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:#1D4ED8;">5</div>
+    <div class="palette-title">
+      <h2>青×橙</h2>
+      <div class="label">アクセシビリティ最強・CVD全型対応・公的安心</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◎◎◎</strong></span>
+      <span class="score-item">差別化<strong>○</strong></span>
+      <span class="score-item">B2C<strong>○</strong></span>
+      <span class="score-item">B2B<strong>◎◎◎</strong></span>
+      <span class="score-item">既存<strong>◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1D4ED8;color:white;"><div class="role">PRIMARY</div><div class="hex">#1D4ED8</div></div>
+        <div class="chip" style="background:#F59E0B;color:white;"><div class="role">ACCENT</div><div class="hex">#F59E0B</div></div>
+        <div class="chip" style="background:#FFFFFF;color:#0F172A;border:1px solid #e5e7eb;"><div class="role">NEUTRAL</div><div class="hex">#FFFFFF</div></div>
+        <div class="chip" style="background:#0F172A;color:white;"><div class="role">INK</div><div class="hex">#0F172A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:white;color:#0F172A;border:1px solid #e5e7eb;">
+          <div class="icon" style="background:radial-gradient(circle at 35% 30%,#60a5fa,#1D4ED8,#1e3a8a);">u</div>
+          <div class="name"><span style="color:#1D4ED8;">:story</span><span style="color:#0F172A;">ne</span><span class="arrow" style="color:#F59E0B;">»</span><span style="color:#0F172A;">t</span></div>
+        </div>
+        <div class="mock-btn" style="background:#1D4ED8;">求人に応募する</div>
+        <div>
+          <span class="mock-card-tag" style="background:#1D4ED8;color:white;">公式</span>
+          <span class="mock-card-tag" style="background:#F59E0B;color:white;">注目</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="mock-site" style="background:linear-gradient(135deg,#0F172A 0%,#1D4ED8 70%,#F59E0B 100%);">
+          <h4>専門性を、自信に。</h4>
+          <p>正確に・公平に・確かな出会いを届けます。</p>
+          <span class="cta" style="color:#1D4ED8;">学校資料を見る</span>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：CVD全型で最強コントラスト・公庫/補助金審査で安心<br>
+          <strong>弱み</strong>：青系HR業界で差別化が弱い・Z世代刺さりは△
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+PALETTE 6: 夜明けの藤 — #1E40AF / #7C3AED / #FBBF24
+====================================================================== -->
+<div id="p6" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#1E40AF,#7C3AED,#FBBF24);">6</div>
+    <div class="palette-title">
+      <h2>夜明けの藤</h2>
+      <div class="label">既存資産救済・青ロゴ＋紫LPを両方活かす</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>○</strong></span>
+      <span class="score-item">差別化<strong>○</strong></span>
+      <span class="score-item">B2C<strong>○</strong></span>
+      <span class="score-item">B2B<strong>◎</strong></span>
+      <span class="score-item">既存<strong>◎◎◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1E40AF;color:white;"><div class="role">PRIMARY</div><div class="hex">#1E40AF</div></div>
+        <div class="chip" style="background:#7C3AED;color:white;"><div class="role">SECONDARY</div><div class="hex">#7C3AED</div></div>
+        <div class="chip" style="background:#FBBF24;color:#1f1f2e;"><div class="role">ACCENT</div><div class="hex">#FBBF24</div></div>
+        <div class="chip" style="background:#1F1F2E;color:white;"><div class="role">INK</div><div class="hex">#1F1F2E</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#1F1F2E;color:white;">
+          <div class="icon" style="background:radial-gradient(circle at 35% 30%,#a78bfa,#7C3AED,#1E40AF);">u</div>
+          <div class="name"><span style="color:#a78bfa;">:story</span><span>ne</span><span class="arrow" style="color:#FBBF24;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:linear-gradient(135deg,#1E40AF,#7C3AED);">気になるをタップ</div>
+        <div>
+          <span class="mock-card-tag" style="background:#1E40AF;color:white;">スタンダード</span>
+          <span class="mock-card-tag" style="background:#FBBF24;color:#1f1f2e;">朝の新着</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="mock-site" style="background:linear-gradient(135deg,#1E40AF 0%,#7C3AED 60%,#FBBF24 100%);">
+          <h4>夜明け、<br>自分軸で動き出す。</h4>
+          <p>既存のu:storyブルー、LPの藤、朝陽の金。</p>
+          <span class="cta" style="color:#1E40AF;">続きを読む</span>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：既存ロゴ＋LP両方を活かす・新旧ブランドの橋渡し<br>
+          <strong>弱み</strong>：色数3色で複雑・ガイドライン要設計
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+PALETTE 7: 道旗×流氷 — #1A2E5C / #D7263D / #FFFFFF
+====================================================================== -->
+<div id="p7" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:#1A2E5C;">7</div>
+    <div class="palette-title">
+      <h2>道旗×流氷</h2>
+      <div class="label">公式権威・地域信頼・道旗直系シンボル</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◎</strong></span>
+      <span class="score-item">差別化<strong>○</strong></span>
+      <span class="score-item">B2C<strong>△</strong></span>
+      <span class="score-item">B2B<strong>◎◎</strong></span>
+      <span class="score-item">北海道<strong>◎◎◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1A2E5C;color:white;"><div class="role">PRIMARY</div><div class="hex">#1A2E5C</div></div>
+        <div class="chip" style="background:#FFFFFF;color:#1A2E5C;border:1px solid #e5e7eb;"><div class="role">SECONDARY</div><div class="hex">#FFFFFF</div></div>
+        <div class="chip" style="background:#D7263D;color:white;"><div class="role">ACCENT</div><div class="hex">#D7263D</div></div>
+        <div class="chip" style="background:#0F172A;color:white;"><div class="role">INK</div><div class="hex">#0F172A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:white;color:#1A2E5C;border:1px solid #e5e7eb;">
+          <div class="icon" style="background:radial-gradient(circle at 35% 30%,#5b7eb8,#1A2E5C,#0c1838);">u</div>
+          <div class="name"><span style="color:#1A2E5C;">:story</span><span style="color:#1A2E5C;">ne</span><span class="arrow" style="color:#D7263D;">»</span><span style="color:#1A2E5C;">t</span></div>
+        </div>
+        <div class="mock-btn" style="background:#1A2E5C;">学校に申請する</div>
+        <div>
+          <span class="mock-card-tag" style="background:#1A2E5C;color:white;">公式</span>
+          <span class="mock-card-tag" style="background:#D7263D;color:white;">緊急</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="mock-site" style="background:linear-gradient(135deg,#1A2E5C 0%,#0c1838 100%);">
+          <h4>北海道発、<br>日本の就活を変える。</h4>
+          <p>道旗の紺、雪原の白、夜明けの赤。</p>
+          <span class="cta" style="color:#1A2E5C;">公式情報を見る</span>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：道旗直系で公的信頼最強・補助金/学校導入で有利<br>
+          <strong>弱み</strong>：B2C（Z世代）刺さりは弱・「役所っぽい」印象懸念
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+NEXT STEPS
+====================================================================== -->
+<div class="palette" style="text-align:center;padding:40px 28px;">
+  <h2 style="margin-bottom:16px;">次の意思決定</h2>
+  <p style="color:var(--gray);font-size:14px;line-height:1.8;max-width:760px;margin:0 auto;">
+    本プレビューは5並列リサーチ（色彩心理・業界19社・北海道・Z世代・アクセシビリティ）を統合した7案です。<br>
+    各案のスコアカードと適用イメージを比較し、UstNextの優先軸に合う1〜2案に絞り込んでから、外部デザイナーへの正式オーダーに進めます。
+  </p>
+  <p style="margin-top:20px;font-size:13px;color:var(--ink);">
+    詳細根拠：<code>UstNext/ブランド/カラー探求/research_a〜e_*.md</code> ／統合: <code>統合_最終候補7案.md</code>
+  </p>
+</div>
+
+</div>
+</body>
+</html>

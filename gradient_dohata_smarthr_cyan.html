@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UstNext グラデーション試作・道旗濃紺 × SmartHRシアン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1f1f2e; --gray:#6b7280; --gray-light:#f3f4f6; --bg:#fafafa; --border:#e5e7eb; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+    color: var(--ink); background: var(--bg); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; padding: 36px 4%;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 56px; }
+  header h1 {
+    font-size: clamp(28px, 4vw, 44px); font-weight: 900; letter-spacing: -0.02em; line-height: 1.2;
+    background: linear-gradient(135deg, #1A2E5C, #00C4CC, #7C3AED);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 16px;
+  }
+  header .sub { color: var(--gray); font-size: 15px; margin-bottom: 6px; }
+  header .nav {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px;
+  }
+  header .nav a {
+    padding: 8px 16px; background: white; border: 1px solid var(--border);
+    border-radius: 999px; text-decoration: none; color: var(--ink); font-size: 13px; font-weight: 700;
+    transition: all 0.15s;
+  }
+  header .nav a:hover { background: var(--ink); color: white; }
+
+  .palette {
+    background: white; margin: 36px 0; border-radius: 24px;
+    box-shadow: 0 6px 36px rgba(0,0,0,0.06); overflow: hidden;
+  }
+  .palette-head {
+    padding: 32px 36px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .palette-num {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 18px; color: white;
+  }
+  .palette-title { flex: 1; min-width: 200px; }
+  .palette-title h2 { font-size: 24px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .palette-title .label { color: var(--gray); font-size: 13px; }
+  .palette-title .gradient-formula {
+    font-family: "SF Mono", Menlo, monospace; font-size: 11px;
+    color: var(--gray); margin-top: 6px;
+  }
+  .scorecard {
+    display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px;
+  }
+  .score-item { background: var(--gray-light); padding: 6px 12px; border-radius: 999px; }
+  .score-item strong { font-weight: 700; margin-left: 4px; }
+
+  .palette-body {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0; min-height: 480px;
+  }
+  @media (max-width: 1000px) { .palette-body { grid-template-columns: 1fr; } }
+
+  .palette-cell { padding: 24px; border-right: 1px solid var(--border); }
+  .palette-cell:last-child { border-right: none; }
+  .palette-cell h3 {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray); font-weight: 700; margin-bottom: 14px;
+  }
+
+  /* COLOR CHIPS */
+  .chips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .chip {
+    border-radius: 12px; padding: 14px 14px; min-height: 92px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+  }
+  .chip .role { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; opacity: 0.88; }
+  .chip .hex {
+    font-family: "SF Mono", Menlo, monospace; font-size: 12px; font-weight: 700; opacity: 0.92;
+  }
+
+  /* APP MOCKUPS */
+  .mockups { display: flex; flex-direction: column; gap: 18px; }
+  .mock-logo {
+    border-radius: 12px; padding: 22px 18px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100px;
+  }
+  .mock-logo .icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Pacifico', cursive; font-size: 22px; color: white;
+    padding-bottom: 6px; margin-bottom: 8px;
+  }
+  .mock-logo .name {
+    font-weight: 800; font-size: 18px; letter-spacing: -0.02em;
+    display: flex; align-items: baseline; gap: 1px;
+  }
+  .mock-logo .name .arrow {
+    font-weight: 900; letter-spacing: -0.15em;
+  }
+  .mock-btn {
+    border-radius: 10px; padding: 12px 18px; font-size: 13px; font-weight: 700; text-align: center;
+    color: white;
+  }
+  .mock-card-tag {
+    border-radius: 999px; padding: 4px 12px; font-size: 11px; font-weight: 700;
+    display: inline-block; margin-right: 6px;
+  }
+
+  /* WEBSITE MOCK */
+  .mock-site {
+    border-radius: 12px; padding: 18px 18px 22px; min-height: 200px;
+    color: white; position: relative; overflow: hidden;
+  }
+  .mock-site h4 {
+    font-size: 18px; font-weight: 900; line-height: 1.2; margin-bottom: 10px;
+  }
+  .mock-site p { font-size: 11px; opacity: 0.85; margin-bottom: 14px; }
+  .mock-site .cta {
+    background: white; padding: 8px 14px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; display: inline-block;
+  }
+
+  .pros-cons {
+    padding: 14px 0; font-size: 12px; color: var(--gray); line-height: 1.6;
+  }
+  .pros-cons strong { color: var(--ink); }
+
+  /* BASE COLORS ROW */
+  .base-colors {
+    display: flex; justify-content: center; gap: 14px; margin: 20px 0 0;
+    flex-wrap: wrap;
+  }
+  .base-color {
+    display: flex; align-items: center; gap: 8px;
+    background: white; padding: 8px 14px; border-radius: 999px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); font-size: 12px; font-weight: 700;
+    font-family: "SF Mono", Menlo, monospace;
+  }
+  .base-color .dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+  }
+
+  /* DASHBOARD STYLE (for LP/SNS cell) */
+  .dashboard-mini {
+    border-radius: 12px; padding: 18px 18px 20px; color: white;
+    display: flex; gap: 14px; align-items: center; min-height: 110px;
+  }
+  .dashboard-mini .dm-icon {
+    width: 46px; height: 46px; border-radius: 14px;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 13px; flex-shrink: 0;
+  }
+  .dashboard-mini h5 {
+    font-size: 14px; font-weight: 900; line-height: 1.2; margin-bottom: 4px;
+  }
+  .dashboard-mini p {
+    font-size: 10px; opacity: 0.92; line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+<header>
+  <h1>UstNext グラデーション試作・SmartHRシアン編</h1>
+  <div class="sub">道旗濃紺 #1A2E5C × SmartHRブランドカラー（シアン #00C4CC・オレンジ #FF9900）を掛け合わせた6パターン</div>
+  <div class="sub">2026-06-09 ／ 既存の紫×ピンク版（gradient_dohata_purple_pink.html）の姉妹編</div>
+  <div class="base-colors">
+    <div class="base-color"><div class="dot" style="background:#1A2E5C;"></div><span>#1A2E5C 道旗濃紺</span></div>
+    <div class="base-color"><div class="dot" style="background:#00C4CC;"></div><span>#00C4CC SmartHRシアン</span></div>
+    <div class="base-color"><div class="dot" style="background:#FF9900;"></div><span>#FF9900 アクセント橙</span></div>
+    <div class="base-color"><div class="dot" style="background:#7C3AED;"></div><span>#7C3AED 既存紫</span></div>
+    <div class="base-color"><div class="dot" style="background:#EC4899;"></div><span>#EC4899 既存ピンク</span></div>
+  </div>
+  <div class="nav">
+    <a href="#a">A 濃紺→シアン</a>
+    <a href="#b">B シアン基調</a>
+    <a href="#c">C 濃紺→シアン→紫</a>
+    <a href="#d">D 濃紺→シアン→ピンク</a>
+    <a href="#e">E シアン×橙</a>
+    <a href="#f">F 濃紺優位×シアン差し</a>
+  </div>
+</header>
+
+<!-- =====================================================================
+A: 濃紺 → シアン（2色）
+====================================================================== -->
+<div id="a" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC);">A</div>
+    <div class="palette-title">
+      <h2>濃紺 → シアン（2色）</h2>
+      <div class="label">清潔・信頼・SaaS感／B2B・採用管理ダッシュボードの王道</div>
+      <div class="gradient-formula">linear-gradient(135deg, #1A2E5C 0%, #00C4CC 100%)</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◎</strong></span>
+      <span class="score-item">B2B<strong>◎◎</strong></span>
+      <span class="score-item">B2C<strong>◯</strong></span>
+      <span class="score-item">既存近似<strong>△</strong></span>
+      <span class="score-item">差別化<strong>◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1A2E5C;color:white;"><div class="role">PRIMARY</div><div class="hex">#1A2E5C</div></div>
+        <div class="chip" style="background:#00C4CC;color:#0F172A;"><div class="role">SECONDARY</div><div class="hex">#00C4CC</div></div>
+        <div class="chip" style="background:#FFFFFF;color:#1f1f2e;border:1px solid #e5e7eb;"><div class="role">NEUTRAL</div><div class="hex">#FFFFFF</div></div>
+        <div class="chip" style="background:#0F172A;color:white;"><div class="role">INK</div><div class="hex">#0F172A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#0F172A;color:white;">
+          <div class="icon" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC);">u</div>
+          <div class="name"><span style="color:#5eead4;">:story</span><span>ne</span><span class="arrow" style="color:#00C4CC;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC);">スカウトを送る</div>
+        <div>
+          <span class="mock-card-tag" style="background:#1A2E5C;color:white;">公式</span>
+          <span class="mock-card-tag" style="background:#00C4CC;color:#0F172A;">推薦</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="dashboard-mini" style="background:linear-gradient(135deg,#1A2E5C 0%,#00C4CC 100%);">
+          <div class="dm-icon" style="color:#0E8A8F;">デモ</div>
+          <div>
+            <h5>デモ建設株式会社</h5>
+            <p>地域密着で50年。建築・土木の総合企業。</p>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：人事SaaSの清潔・信頼の文法／管理画面に最も馴染む<br>
+          <strong>弱み</strong>：シアンは「就活の熱量」より「業務効率」寄り・既存紫からは離れる
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+B: シアン基調（SmartHR寄せ）
+====================================================================== -->
+<div id="b" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#00C4CC,#1A2E5C);">B</div>
+    <div class="palette-title">
+      <h2>シアン基調（明るさ優位・SmartHR寄せ）</h2>
+      <div class="label">シアンを主役にして軽快・若々しく／プロダクトUI・学生向け管理画面</div>
+      <div class="gradient-formula">linear-gradient(135deg, #00C4CC 0%, #0E8A8F 60%, #1A2E5C 100%)</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◯</strong></span>
+      <span class="score-item">B2B<strong>◎</strong></span>
+      <span class="score-item">B2C<strong>◎</strong></span>
+      <span class="score-item">既存近似<strong>△</strong></span>
+      <span class="score-item">差別化<strong>◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#00C4CC;color:#0F172A;"><div class="role">PRIMARY</div><div class="hex">#00C4CC</div></div>
+        <div class="chip" style="background:#0E8A8F;color:white;"><div class="role">DEEP</div><div class="hex">#0E8A8F</div></div>
+        <div class="chip" style="background:#1A2E5C;color:white;"><div class="role">INK NAVY</div><div class="hex">#1A2E5C</div></div>
+        <div class="chip" style="background:#F8F7F6;color:#1f1f2e;border:1px solid #e5e7eb;"><div class="role">STONE</div><div class="hex">#F8F7F6</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#0F172A;color:white;">
+          <div class="icon" style="background:linear-gradient(135deg,#00C4CC,#1A2E5C);">u</div>
+          <div class="name"><span style="color:#5eead4;">:story</span><span>ne</span><span class="arrow" style="color:#00C4CC;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:linear-gradient(135deg,#00C4CC,#0E8A8F);color:#0F172A;">スカウトを送る</div>
+        <div>
+          <span class="mock-card-tag" style="background:#00C4CC;color:#0F172A;">公式</span>
+          <span class="mock-card-tag" style="background:#1A2E5C;color:white;">推薦</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="dashboard-mini" style="background:linear-gradient(135deg,#00C4CC 0%,#0E8A8F 60%,#1A2E5C 100%);">
+          <div class="dm-icon" style="color:#0E8A8F;">デモ</div>
+          <div>
+            <h5>デモ建設株式会社</h5>
+            <p>軽快なシアンで「使いやすさ」を前面に。</p>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：明るく軽快・プロダクトの「触りやすさ」を訴求<br>
+          <strong>弱み</strong>：シアン主役は白背景で淡く見え、見出しは濃紺併用が必須
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+C: 濃紺 → シアン → 紫（既存ブランドへの橋渡し）
+====================================================================== -->
+<div id="c" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC,#7C3AED);">C</div>
+    <div class="palette-title">
+      <h2>濃紺 → シアン → 紫（3色・橋渡し本命）</h2>
+      <div class="label">SmartHRの清潔さと既存ブランドの紫を1本に繋ぐ／移行期の主役候補</div>
+      <div class="gradient-formula">linear-gradient(135deg, #1A2E5C 0%, #00C4CC 50%, #7C3AED 100%)</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◯</strong></span>
+      <span class="score-item">B2B<strong>◎</strong></span>
+      <span class="score-item">B2C<strong>◎</strong></span>
+      <span class="score-item">既存近似<strong>◯</strong></span>
+      <span class="score-item">差別化<strong>◎◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1A2E5C;color:white;"><div class="role">PRIMARY</div><div class="hex">#1A2E5C</div></div>
+        <div class="chip" style="background:#00C4CC;color:#0F172A;"><div class="role">SECONDARY</div><div class="hex">#00C4CC</div></div>
+        <div class="chip" style="background:#7C3AED;color:white;"><div class="role">ACCENT</div><div class="hex">#7C3AED</div></div>
+        <div class="chip" style="background:#0F172A;color:white;"><div class="role">INK</div><div class="hex">#0F172A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#0F172A;color:white;">
+          <div class="icon" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC,#7C3AED);">u</div>
+          <div class="name"><span style="color:#5eead4;">:story</span><span>ne</span><span class="arrow" style="color:#7C3AED;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC,#7C3AED);">スカウトを送る</div>
+        <div>
+          <span class="mock-card-tag" style="background:#1A2E5C;color:white;">公式</span>
+          <span class="mock-card-tag" style="background:#00C4CC;color:#0F172A;">推薦</span>
+          <span class="mock-card-tag" style="background:#7C3AED;color:white;">NEW</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="dashboard-mini" style="background:linear-gradient(135deg,#1A2E5C 0%,#00C4CC 50%,#7C3AED 100%);">
+          <div class="dm-icon" style="color:#0E8A8F;">デモ</div>
+          <div>
+            <h5>デモ建設株式会社</h5>
+            <p>清潔なシアンから、物語の紫へ。</p>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：既存の紫を捨てず、SmartHR的清潔さを獲得する折衷案<br>
+          <strong>弱み</strong>：3色は中域がくすみやすく、停止位置の調整が要る
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+D: 濃紺 → シアン → ピンク（夜明け＋清潔のフルスペクトル）
+====================================================================== -->
+<div id="d" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC,#EC4899);">D</div>
+    <div class="palette-title">
+      <h2>濃紺 → シアン → ピンク（3色・フルスペクトル）</h2>
+      <div class="label">海から夜明けへ。清潔と熱量を両取り／学生向けLP・SNSヘッダー</div>
+      <div class="gradient-formula">linear-gradient(135deg, #1A2E5C 0%, #00C4CC 45%, #EC4899 100%)</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◯</strong></span>
+      <span class="score-item">B2B<strong>◯</strong></span>
+      <span class="score-item">B2C<strong>◎◎</strong></span>
+      <span class="score-item">既存近似<strong>◯</strong></span>
+      <span class="score-item">差別化<strong>◎◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1A2E5C;color:white;"><div class="role">PRIMARY</div><div class="hex">#1A2E5C</div></div>
+        <div class="chip" style="background:#00C4CC;color:#0F172A;"><div class="role">MID</div><div class="hex">#00C4CC</div></div>
+        <div class="chip" style="background:#EC4899;color:white;"><div class="role">ACCENT</div><div class="hex">#EC4899</div></div>
+        <div class="chip" style="background:#0F172A;color:white;"><div class="role">INK</div><div class="hex">#0F172A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#0F172A;color:white;">
+          <div class="icon" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC,#EC4899);">u</div>
+          <div class="name"><span style="color:#5eead4;">:story</span><span>ne</span><span class="arrow" style="color:#EC4899;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC,#EC4899);">気になる</div>
+        <div>
+          <span class="mock-card-tag" style="background:#00C4CC;color:#0F172A;">公式</span>
+          <span class="mock-card-tag" style="background:#EC4899;color:white;">HOT</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="dashboard-mini" style="background:linear-gradient(135deg,#1A2E5C 0%,#00C4CC 45%,#EC4899 100%);">
+          <div class="dm-icon" style="color:#0E8A8F;">デモ</div>
+          <div>
+            <h5>デモ建設株式会社</h5>
+            <p>海の青から、夜明けのピンクへ。</p>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：色域が広く印象的・SNSで指が止まる華やかさ<br>
+          <strong>弱み</strong>：シアン⇄ピンクの中間が灰みがち・B2B資料には賑やか過ぎ
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+E: シアン × オレンジ（SmartHRフルキット）
+====================================================================== -->
+<div id="e" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#00C4CC,#1A2E5C 70%);">E</div>
+    <div class="palette-title">
+      <h2>シアン × オレンジ差し（SmartHRフルキット）</h2>
+      <div class="label">濃紺×シアンの土台に、橙を行動喚起の一点だけに使う／CTA・通知バッジ</div>
+      <div class="gradient-formula">base: linear-gradient(135deg, #1A2E5C, #00C4CC) ／ accent: #FF9900</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◎</strong></span>
+      <span class="score-item">B2B<strong>◎</strong></span>
+      <span class="score-item">B2C<strong>◎</strong></span>
+      <span class="score-item">既存近似<strong>△</strong></span>
+      <span class="score-item">差別化<strong>◎◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1A2E5C;color:white;"><div class="role">PRIMARY</div><div class="hex">#1A2E5C</div></div>
+        <div class="chip" style="background:#00C4CC;color:#0F172A;"><div class="role">SECONDARY</div><div class="hex">#00C4CC</div></div>
+        <div class="chip" style="background:#FF9900;color:#0F172A;"><div class="role">CTA ACCENT</div><div class="hex">#FF9900</div></div>
+        <div class="chip" style="background:#23221F;color:white;"><div class="role">INK BLACK</div><div class="hex">#23221F</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#23221F;color:white;">
+          <div class="icon" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC);">u</div>
+          <div class="name"><span style="color:#5eead4;">:story</span><span>ne</span><span class="arrow" style="color:#FF9900;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:#FF9900;color:#23221F;">今すぐ応募する</div>
+        <div>
+          <span class="mock-card-tag" style="background:#1A2E5C;color:white;">公式</span>
+          <span class="mock-card-tag" style="background:#FF9900;color:#23221F;">締切間近</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="dashboard-mini" style="background:linear-gradient(135deg,#1A2E5C 0%,#00C4CC 100%);">
+          <div class="dm-icon" style="color:#FF9900;">デモ</div>
+          <div>
+            <h5>デモ建設株式会社</h5>
+            <p>信頼の青に、行動の橙を一点だけ。</p>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：橙のCTAが青地で最も目立つ・SmartHRと同じ役割分担で堅実<br>
+          <strong>弱み</strong>：橙は使い過ぎると安っぽく見える・面積は5%以下が鉄則
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+F: 濃紺優位 × シアン差し（B2B移行版）
+====================================================================== -->
+<div id="f" class="palette">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#1A2E5C 60%,#0E8A8F 85%,#00C4CC);">F</div>
+    <div class="palette-title">
+      <h2>濃紺優位 × シアン差し（信頼B2B寄り）</h2>
+      <div class="label">濃紺を広く取り、右下にシアンの光だけ／銀行・補助金・学校就職課向け</div>
+      <div class="gradient-formula">linear-gradient(135deg, #1A2E5C 55%, #0E8A8F 82%, #00C4CC 100%)</div>
+    </div>
+    <div class="scorecard">
+      <span class="score-item">A11y<strong>◎</strong></span>
+      <span class="score-item">B2B<strong>◎◎◎</strong></span>
+      <span class="score-item">B2C<strong>◯</strong></span>
+      <span class="score-item">既存近似<strong>◯</strong></span>
+      <span class="score-item">差別化<strong>◎</strong></span>
+    </div>
+  </div>
+  <div class="palette-body">
+    <div class="palette-cell">
+      <h3>カラーチップ</h3>
+      <div class="chips">
+        <div class="chip" style="background:#1A2E5C;color:white;"><div class="role">PRIMARY 55%</div><div class="hex">#1A2E5C</div></div>
+        <div class="chip" style="background:#0E8A8F;color:white;"><div class="role">MID 82%</div><div class="hex">#0E8A8F</div></div>
+        <div class="chip" style="background:#00C4CC;color:#0F172A;"><div class="role">LIGHT 100%</div><div class="hex">#00C4CC</div></div>
+        <div class="chip" style="background:#0F172A;color:white;"><div class="role">INK</div><div class="hex">#0F172A</div></div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>ロゴ・UI</h3>
+      <div class="mockups">
+        <div class="mock-logo" style="background:#0F172A;color:white;">
+          <div class="icon" style="background:linear-gradient(135deg,#1A2E5C 55%,#0E8A8F 82%,#00C4CC);">u</div>
+          <div class="name"><span style="color:#94a3b8;">:story</span><span>ne</span><span class="arrow" style="color:#00C4CC;">»</span><span>t</span></div>
+        </div>
+        <div class="mock-btn" style="background:linear-gradient(135deg,#1A2E5C 55%,#0E8A8F 82%,#00C4CC);">スカウトを送る</div>
+        <div>
+          <span class="mock-card-tag" style="background:#1A2E5C;color:white;">公式</span>
+          <span class="mock-card-tag" style="background:#00C4CC;color:#0F172A;">推薦</span>
+        </div>
+      </div>
+    </div>
+    <div class="palette-cell">
+      <h3>LP・SNS</h3>
+      <div class="mockups">
+        <div class="dashboard-mini" style="background:linear-gradient(135deg,#1A2E5C 55%,#0E8A8F 82%,#00C4CC 100%);">
+          <div class="dm-icon" style="color:#1A2E5C;">デモ</div>
+          <div>
+            <h5>デモ建設株式会社</h5>
+            <p>信頼の濃紺に、清潔なシアンの光。</p>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <strong>強み</strong>：役所・銀行向けの安心感＋古臭くならない清潔さ<br>
+          <strong>弱み</strong>：シアンが右下だけなので、小サイズだとほぼ濃紺単色に見える
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+比較ガイド
+====================================================================== -->
+<div class="palette" style="text-align:left;">
+  <div class="palette-head">
+    <div class="palette-num" style="background:linear-gradient(135deg,#1A2E5C,#00C4CC);">⌖</div>
+    <div class="palette-title">
+      <h2>選択ガイド：どこで使う？</h2>
+      <div class="label">用途別の推奨パターン（紫×ピンク版との使い分け含む）</div>
+    </div>
+  </div>
+  <div style="padding: 24px 36px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:var(--gray-light);">
+          <th style="padding:10px 12px;text-align:left;border-radius:6px 0 0 6px;">用途</th>
+          <th style="padding:10px 12px;text-align:left;">推奨</th>
+          <th style="padding:10px 12px;text-align:left;border-radius:0 6px 6px 0;">理由</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--gray-light);">
+          <td style="padding:12px;font-weight:700;">採用管理ダッシュボード（プロダクトUI）</td>
+          <td style="padding:12px;">A → B</td>
+          <td style="padding:12px;color:var(--gray);">SaaSの清潔・信頼の文法で「使いやすそう」を獲得</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-light);">
+          <td style="padding:12px;font-weight:700;">企業向け資料（VC・銀行・補助金）</td>
+          <td style="padding:12px;">F → A</td>
+          <td style="padding:12px;color:var(--gray);">濃紺優位＋シアンで「堅実だが古くない」</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-light);">
+          <td style="padding:12px;font-weight:700;">既存ブランド（紫）からの移行</td>
+          <td style="padding:12px;">C</td>
+          <td style="padding:12px;color:var(--gray);">シアンと紫を1本に繋ぎ、断絶せず刷新</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-light);">
+          <td style="padding:12px;font-weight:700;">学生向けLP・SNS</td>
+          <td style="padding:12px;">D → B</td>
+          <td style="padding:12px;color:var(--gray);">色域広く華やか／清潔さで保護者の安心も両取り</td>
+        </tr>
+        <tr>
+          <td style="padding:12px;font-weight:700;">CTA・締切・通知バッジ</td>
+          <td style="padding:12px;">E（橙アクセント）</td>
+          <td style="padding:12px;color:var(--gray);">青地に橙が最も目立つ・面積5%以下で運用</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:18px;font-size:12px;color:var(--gray);line-height:1.7;">
+      <strong style="color:var(--ink);">紫×ピンク版との関係：</strong>
+      SmartHRシアンは「清潔・信頼・業務効率（SaaSらしさ）」、既存の紫×ピンクは「夜明け・物語・就活の熱量」。
+      二者択一にせず、<strong style="color:var(--ink);">C（濃紺→シアン→紫）</strong>を蝶番にして、
+      プロダクトUI＝シアン寄り／対学生コミュニケーション＝紫ピンク寄り、と役割で振り分けるのが現実的。
+    </p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
